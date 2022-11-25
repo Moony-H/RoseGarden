@@ -18,18 +18,21 @@ public class Player : MonoBehaviour
     private float _speed;
     private bool isStopped = false;
 
-    private float velocity = 0f;
 
     [SerializeField]
-    private float attackRange = 7f;
-    private float _attackRange = 0f;
+    private float attackSpeed = 7f;
+    private float _attackSpeed = 0f;
 
+    [SerializeField]
+    private float attackRange = 0.5f;
 
-
+    [SerializeField]
+    private float attackTime = 0.4f;
     private bool isInputBlocked = false;
 
     private bool isAttack = false;
-    private bool attackAcc = false;
+    private bool isAttackCollider = false;
+
     [SerializeField]
     float pushValue = 20f;
 
@@ -60,10 +63,22 @@ public class Player : MonoBehaviour
 
         if (isAttack)
         {
+            _attackSpeed = Mathf.Lerp(_attackSpeed, 0f, Time.deltaTime * 4f / 7f * attackSpeed);
+            characterMove = _attackSpeed * characterDir * _speed;
+            Collider2D[] colls=null;
+            if (isAttackCollider) {
+                Vector2 attack = new Vector2(transform.position.x, transform.position.y);
+                colls = Physics2D.OverlapCircleAll(attack+characterDir, attackRange);
 
-            _attackRange = Mathf.Lerp(_attackRange, 0f, Time.deltaTime * 4f);
-            characterMove = _attackRange * characterDir * _speed;
-            return;
+                foreach (Collider2D coll in colls) {
+                    if (coll.tag == "monster") {
+                        Destroy(coll.gameObject);
+                        
+                    }
+
+                
+                }
+            }
         }
 
 
@@ -84,6 +99,16 @@ public class Player : MonoBehaviour
     {
 
         transform.Translate(characterMove * Time.deltaTime);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (isAttackCollider) {
+            Vector2 attack = new Vector2(transform.position.x, transform.position.y)+ characterDir;
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(new Vector3(attack.x, attack.y, 0), attackRange);
+
+        }
     }
 
 
@@ -116,11 +141,13 @@ public class Player : MonoBehaviour
         isAttack = true;
 
         BlockInput();
-        attackAcc = true;
-        _attackRange = attackRange;
-        yield return new WaitForSeconds(0.4f);
+        _attackSpeed = attackSpeed;
+        isAttackCollider = true;
+        yield return new WaitForSeconds(attackTime *0.7f);
+        isAttackCollider = false;
+        yield return new WaitForSeconds(attackTime * 0.3f);
         isAttack = false;
-        _attackRange = 0f;
+        _attackSpeed = 0f;
         UnblouckInput();
     }
 }

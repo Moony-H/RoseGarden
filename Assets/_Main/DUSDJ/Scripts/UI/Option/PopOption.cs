@@ -18,6 +18,28 @@ namespace DUSDJ
             }
 
         }
+
+
+        public void BtnChangeBGMVolume(float value)
+        {
+            OptionManager.Instance.BtnChangeBGMVolume(value);
+        }
+
+        public void BtnChangeEfxVolume(float value)
+        {
+            OptionManager.Instance.BtnChangeEfxVolume(value);
+        }
+
+        public void SetBGMVolume(float value)
+        {
+            OptionManager.Instance.SetBGMVolume(value);
+        }
+
+        public void SetEfxVolume(float value)
+        {
+            OptionManager.Instance.SetEfxVolume(value);
+        }
+
     }
 
 }

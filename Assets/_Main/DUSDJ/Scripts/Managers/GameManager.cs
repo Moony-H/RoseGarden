@@ -77,6 +77,12 @@ namespace DUSDJ
 
             Debug.Log("=====GameManager Init=====");
 
+
+            /* InGame UI Manager */
+            yield return UIManager.Instance.InitCoroutine();
+
+
+
             /* Set BGM */
             AudioManager.Instance.SetBGM(BGMName);
 
@@ -85,8 +91,22 @@ namespace DUSDJ
 
 
             isInit = true;
+
+
+            yield return AfterInit();
         }
 
+
+        public IEnumerator AfterInit()
+        {
+            // Stage Start Dialogue
+            // 스테이지 CSV데이터에서 가져와야하지만 임시로 0 고정
+
+            yield return DialogueManager.Instance.Stage_Dialogue(0);
+
+
+            yield return null;
+        }
 
         #endregion
 

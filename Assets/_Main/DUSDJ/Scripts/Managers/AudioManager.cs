@@ -163,6 +163,7 @@ namespace DUSDJ
 
         public void SetBGM(string msg)
         {
+            Debug.Log("SetBGM");
 
             if (audioSourceBgm == null)
             {

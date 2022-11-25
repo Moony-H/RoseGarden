@@ -1796,6 +1796,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7583532646923062024, guid: 2bfcd31c7ed131248b657fbdaec77271, type: 3}
+      propertyPath: BGMName
+      value: OST Pro - The Journey Begins
+      objectReference: {fileID: 0}
     - target: {fileID: 7583532646923062025, guid: 2bfcd31c7ed131248b657fbdaec77271, type: 3}
       propertyPath: m_RootOrder
       value: 9

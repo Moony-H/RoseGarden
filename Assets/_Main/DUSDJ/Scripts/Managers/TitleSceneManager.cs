@@ -48,12 +48,17 @@ namespace DUSDJ
                 ForceLoadingObject.SetActive(false);
             }
 
-            // OptionManager
-            OptionManager.Instance.Init();
-
+            
             // Resource Managers
             yield return AudioManager.Instance.InitCoroutine();
             yield return EffectManager.Instance.InitCoroutine();
+
+            yield return new WaitForSeconds(2.0f);
+
+            // OptionManager
+            OptionManager.Instance.Init();
+
+
 
 
             isLoaded = true;

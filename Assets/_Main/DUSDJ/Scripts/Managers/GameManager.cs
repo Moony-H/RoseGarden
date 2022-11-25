@@ -87,6 +87,34 @@ namespace DUSDJ
         #endregion
 
 
+
+
+        #region Testing
+
+        private void Update()
+        {
+            if(isInit == false)
+            {
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                Debug.Log("Key I : PlaySound");
+                AudioManager.Instance.PlayOneShot("attack_01");
+            }
+
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                Debug.Log("Key O : Effect");
+                EffectManager.Instance.SetEffect("Efx_Sample", Vector3.zero);
+            }
+        }
+
+
+        #endregion
+
+
     }
 
 }

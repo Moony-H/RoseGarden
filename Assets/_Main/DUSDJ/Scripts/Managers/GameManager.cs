@@ -21,8 +21,8 @@ namespace DUSDJ
                     {
                         Debug.LogError("GameManager Create");
 
-                        var load = Resources.Load<GameManager>("Managers");
-                        instance = load;
+                        var load = Resources.Load<GameManager>("Managers/GameManager");
+                        instance = Instantiate(load);
                     }
                 }
 
@@ -63,6 +63,8 @@ namespace DUSDJ
 
         public void Init()
         {
+            Debug.LogWarning("InGame Init!");
+
             StartCoroutine(InitCoroutine());
         }
 
@@ -78,6 +80,8 @@ namespace DUSDJ
             /* Set BGM */
             AudioManager.Instance.SetBGM(BGMName);
 
+            /* Set PopOption */
+            OptionManager.Instance.Init();
 
 
             isInit = true;

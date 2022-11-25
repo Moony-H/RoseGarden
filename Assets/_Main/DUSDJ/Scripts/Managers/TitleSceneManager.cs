@@ -11,7 +11,31 @@ namespace DUSDJ
 {
     public class TitleSceneManager : MonoBehaviour
     {
-        public static bool isLoaded = false;
+        #region SingleTon
+        /* SingleTon */
+        private static TitleSceneManager instance;
+        public static TitleSceneManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = GameObject.FindObjectOfType(typeof(TitleSceneManager)) as TitleSceneManager;
+                    if (!instance)
+                    {
+                        Debug.LogError("TitleSceneManager Null");
+                        return null;
+                    }
+                }
+
+                return instance;
+            }
+        }
+
+        #endregion
+
+        public static bool IsLoaded = false;
+
 
         public GameObject ForceLoadingObject;
 
@@ -19,13 +43,38 @@ namespace DUSDJ
 
         private void Awake()
         {
-            if (isLoaded)
+            Debug.LogWarning("Awake!");
+
+            if (Instance == this)
             {
+                DontDestroyOnLoad(this);
+            }
+            else
+            {
+                if (IsLoaded)
+                {
+                    // Loaded & GameScene
+                    if (SceneManager.GetActiveScene().buildIndex == 2)
+                    {
+                        GameManager.Instance.Init();
+                        return;
+                    }
+                }
+
+                Destroy(gameObject);
+
                 return;
             }
 
+            if (IsLoaded)
+            {
+                return;
+            }
+            
+            instance = this;
+
             // Scene 0 = Title
-            if(SceneManager.GetActiveScene().buildIndex == 0)
+            if (SceneManager.GetActiveScene().buildIndex == 0)
             {
                 StartCoroutine(InitRoutine());                
             }
@@ -38,6 +87,8 @@ namespace DUSDJ
 
         public IEnumerator InitRoutine(bool isTitle = true)
         {
+            Debug.LogWarning("Title Init!");
+
             // GameScene : Loading Object Set Acitve
             if (!isTitle)
             {
@@ -61,7 +112,7 @@ namespace DUSDJ
 
 
 
-            isLoaded = true;
+            IsLoaded = true;
 
             // GameScene : Init
             if (!isTitle)
@@ -70,5 +121,27 @@ namespace DUSDJ
                 GameManager.Instance.Init();
             }
         }
+
+
+
+        public void BtnLoadScene(int index)
+        {
+            LoadingSceneManager.LoadScene(index);
+        }
+
+        /// <summary>
+        /// 게임 종료
+        /// </summary>
+        public void BtnQuitApplication()
+        {
+            // 앱 종료
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            UnityEngine.Application.Quit();
+#endif
+        }
+
+
     }
 }

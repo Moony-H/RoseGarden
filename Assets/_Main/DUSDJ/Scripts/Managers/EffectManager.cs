@@ -21,10 +21,10 @@ namespace DUSDJ
                     instance = GameObject.FindObjectOfType(typeof(EffectManager)) as EffectManager;
                     if (!instance)
                     {
-                        Debug.LogError("EffectManager Create");
+                        Debug.LogWarning("EffectManager Create");
 
-                        var load = Resources.Load<EffectManager>("Managers");
-                        instance = load;
+                        var load = Resources.Load<EffectManager>("Managers/EffectManager");
+                        instance = Instantiate(load);
                     }
                 }
 

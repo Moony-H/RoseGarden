@@ -23,10 +23,10 @@ namespace DUSDJ
                     instance = GameObject.FindObjectOfType(typeof(OptionManager)) as OptionManager;
                     if (!instance)
                     {
-                        Debug.LogError("OptionManager Create");
+                        Debug.LogWarning("OptionManager Create");
 
-                        var load = Resources.Load<OptionManager>("Managers");
-                        instance = load;                       
+                        var load = Resources.Load<OptionManager>("Managers/OptionManager");
+                        instance = Instantiate(load);                       
                     }
                 }
 
@@ -77,7 +77,7 @@ namespace DUSDJ
 
                 if (PopOption == null)
                 {
-                    Debug.LogError("PopOption Null in this Scene!");
+                    Debug.LogWarning("PopOption Null in this Scene!");
                     return;
                 }
             }

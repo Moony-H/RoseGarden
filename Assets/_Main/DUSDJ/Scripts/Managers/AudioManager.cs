@@ -24,10 +24,10 @@ namespace DUSDJ
                     instance = GameObject.FindObjectOfType(typeof(AudioManager)) as AudioManager;
                     if (!instance)
                     {
-                        Debug.LogError("audioManager Create");
+                        Debug.LogWarning("audioManager Create");
 
-                        var load = Resources.Load<AudioManager>("Managers");
-                        instance = load;
+                        var load = Resources.Load<AudioManager>("Managers/AudioManager");                        
+                        instance = Instantiate(load);
                     }
                 }
 
@@ -163,6 +163,7 @@ namespace DUSDJ
 
         public void SetBGM(string msg)
         {
+            Debug.Log("SetBGM");
 
             if (audioSourceBgm == null)
             {

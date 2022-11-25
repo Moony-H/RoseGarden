@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa5fff9b46d299a49a5f1aa75c324f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BGMName: See The Light_Piano Loop_01
 --- !u!1 &7583532647214885669
 GameObject:
   m_ObjectHideFlags: 0

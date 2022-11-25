@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace DUSDJ
 {
@@ -24,10 +23,10 @@ namespace DUSDJ
                     instance = GameObject.FindObjectOfType(typeof(OptionManager)) as OptionManager;
                     if (!instance)
                     {
-                        Debug.LogError("OptionManager Create");
+                        Debug.LogWarning("OptionManager Create");
 
-                        var load = Resources.Load<OptionManager>("Managers");
-                        instance = load;                       
+                        var load = Resources.Load<OptionManager>("Managers/OptionManager");
+                        instance = Instantiate(load);                       
                     }
                 }
 
@@ -37,19 +36,10 @@ namespace DUSDJ
 
         #endregion
 
-
-
         #region UI
         [Header("옵션창")]
         public PopOption PopOption;
 
-        [Header("스크롤바")]
-        public Scrollbar ScrollBgm;
-        public Scrollbar ScrollEfx;
-
-        [Header("스크롤바 Fill")]
-        public Image ScrollBgmFill;
-        public Image ScrollEfxFill;
 
         // [Header("게임종료 확인 모달")]
         // public TitleModal QuitGameModal;
@@ -81,6 +71,19 @@ namespace DUSDJ
 
         public void Init()
         {
+            if (PopOption == null)
+            {
+                PopOption = FindObjectOfType<PopOption>(true);
+
+                if (PopOption == null)
+                {
+                    Debug.LogWarning("PopOption Null in this Scene!");
+                    return;
+                }
+            }
+
+
+
             LoadVolume();
 
             SetOption(false);
@@ -116,8 +119,8 @@ namespace DUSDJ
                 LoadVolume();
 
                 // Update ScrollBar
-                ScrollBgm.value = AudioManager.Instance.GetBGMVolume();
-                ScrollEfx.value = AudioManager.Instance.GetEfxVolume();
+                PopOption.ScrollBgm.value = AudioManager.Instance.GetBGMVolume();
+                PopOption.ScrollEfx.value = AudioManager.Instance.GetEfxVolume();
 
                 // 씬에 따른 버튼 비활성 처리
                 // SetButtonsByScene();
@@ -163,23 +166,23 @@ namespace DUSDJ
 
         public void BtnChangeBGMVolume(float value)
         {
-            float result = Mathf.Clamp01(ScrollBgm.value + value);
-            ScrollBgm.value = result;
+            float result = Mathf.Clamp01(PopOption.ScrollBgm.value + value);
+            PopOption.ScrollBgm.value = result;
 
             AudioManager.Instance.SetBGMVolume(result);
         }
 
         public void BtnChangeEfxVolume(float value)
         {
-            float result = Mathf.Clamp01(ScrollEfx.value + value);
-            ScrollEfx.value = result;
+            float result = Mathf.Clamp01(PopOption.ScrollEfx.value + value);
+            PopOption.ScrollEfx.value = result;
 
             AudioManager.Instance.SetEfxVolume(result);
         }
 
         public void SetBGMVolume(float value)
         {
-            ScrollBgmFill.fillAmount = value;
+            PopOption.ScrollBgmFill.fillAmount = value;
 
             PlayerPrefs.SetFloat("BgmVolume", value);
 
@@ -188,7 +191,7 @@ namespace DUSDJ
 
         public void SetEfxVolume(float value)
         {
-            ScrollEfxFill.fillAmount = value;
+            PopOption.ScrollEfxFill.fillAmount = value;
 
             PlayerPrefs.SetFloat("EfxVolume", value);
 

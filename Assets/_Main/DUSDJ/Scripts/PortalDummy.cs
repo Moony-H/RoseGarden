@@ -1,18 +1,20 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortalDummy : MonoBehaviour
+namespace DUSDJ
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PortalDummy : MonoBehaviour
     {
-        
-    }
+        public string EffectName;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [Button]
+        public void SetText(string str)
+        {
+            EffectManager.Instance.SetTextEffect(EffectName, transform.position, str);
+        }
     }
 }
+
+

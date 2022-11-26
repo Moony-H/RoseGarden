@@ -20,7 +20,7 @@ namespace DUSDJ
 
         IEnumerator coroutine;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             spr = GetComponent<SpriteRenderer>();
             anim = GetComponent<Animator>();

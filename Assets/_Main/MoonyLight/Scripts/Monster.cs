@@ -28,6 +28,9 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private GameObject target;
 
+    [SerializeField]
+    private GameObject effect;
+
 
     private void Awake()
     {
@@ -45,6 +48,16 @@ public class Monster : MonoBehaviour
     private void FixedUpdate()
     {
         if (hpSystem.isAlive) {
+            float x3Diff = transform.position.x - target.transform.position.x;
+            if (x3Diff > 0f)
+            {
+                //¿ÞÂÊ
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            else {
+
+                transform.rotation = Quaternion.Euler(0f, -180f, 0f);            
+            }
             if (!isKnockBack)
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
         }
@@ -58,6 +71,15 @@ public class Monster : MonoBehaviour
     {
         if (collision.transform.CompareTag("Weapon"))
         {
+
+            DUSDJ.EffectManager.Instance.SetTextEffect("Hit_Mon_Dammage", transform.position, string.Format("{0}", UnityEngine.Random.Range(193, 295)));
+
+            Vector3 hitPosition = transform.position;
+            hitPosition.z += 1;
+            Instantiate(effect, hitPosition, Quaternion.Euler(Vector3.zero));
+
+
+
             hpSystem.loseHp(player.attackDamage);
             Debug.Log("attacked: " + player.attackDamage.ToString());
             if (knockBack == null)

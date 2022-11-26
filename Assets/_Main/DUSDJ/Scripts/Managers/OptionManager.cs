@@ -199,6 +199,11 @@ namespace DUSDJ
         }
 
 
+        public void GoToTitle()
+        {
+            LoadingSceneManager.LoadScene(0);
+        }
+
         #endregion
     }
 

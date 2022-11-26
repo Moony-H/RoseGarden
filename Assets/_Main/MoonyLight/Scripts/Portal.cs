@@ -39,7 +39,7 @@ public class Portal : MonoBehaviour
         while (true) {
             yield return new WaitForSeconds(createTime);
             Vector2 v2Position=new Vector2(transform.position.x, transform.position.y);
-            Instantiate(monster, Random.insideUnitCircle+ v2Position, Quaternion.Euler(0f,0f,0f));
+            Instantiate(monster, (Random.insideUnitCircle)*5f + v2Position, Quaternion.Euler(0f,0f,0f));
 
         }
 

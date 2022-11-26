@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -123,6 +124,44 @@ namespace DUSDJ
             audioSourceEfx.PlayOneShot(AudioDic[msg]);
         }
 
+
+        public Dictionary<string, int> GroupDic = new Dictionary<string, int>();
+
+
+        public void PlayOneShotGroup(string msg, int max = 3, float lifeTime = 0.1f)
+        {
+            if (AudioDic == null)
+            {
+                return;
+            }
+
+            if (AudioDic.ContainsKey(msg) == false)
+            {
+                Debug.LogError(string.Format("Key : {0} 오디오소스가 없음", msg));
+                return;
+            }
+
+
+            if (GroupDic.ContainsKey(msg))
+            {
+                if (GroupDic[msg] >= max)
+                {
+                    return;
+                }
+
+                GroupDic[msg] += 1;                
+                DOVirtual.DelayedCall(lifeTime, () => { GroupDic[msg] -= 1; });
+            }
+            else
+            {
+                GroupDic.Add(msg, 1);
+                DOVirtual.DelayedCall(lifeTime, () => { GroupDic[msg] -= 1; });
+            }
+
+
+            audioSourceEfx.PlayOneShot(AudioDic[msg]);
+        }
+
         #endregion
 
 
@@ -171,11 +210,12 @@ namespace DUSDJ
                 return;
             }
 
+            /*
             if (audioSourceBgm.clip == AudioDic[msg])
             {
                 return;
             }
-
+            */
             audioSourceBgm.Stop();
             audioSourceBgm.clip = AudioDic[msg];
             audioSourceBgm.loop = true;

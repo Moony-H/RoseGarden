@@ -22,7 +22,7 @@ namespace DUSDJ
                     value = 0;
                 }
 
-                if(value > 180)
+                if(value >= MaxTimer)
                 {
                     value = MaxTimer;
                     TimerOver();
@@ -104,7 +104,9 @@ namespace DUSDJ
             routine = null;
 
             // Max! 
-            Debug.Log("Timer End!");
+            Debug.LogWarning("Timer End!");
+
+            GameManager.Instance.GameClear();
         }
     }
 

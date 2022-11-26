@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("¸Ê ÇÑ°è")]
+    public float MaxY;
+    public float MinY;
+
+    public float MaxX;
+    public float MinX;
+
+
     // Start is called before the first frame update
 
     public Vector2 characterDir = Vector2.right;
@@ -73,6 +81,32 @@ public class Player : MonoBehaviour
     }
 
 
+    private bool IsMapLimit(Vector2 dir)
+    {
+        if(dir.y > 0 && transform.position.y >= MaxY)
+        {
+            return true;
+        }
+
+        if (dir.y < 0 && transform.position.y <= MinY)
+        {
+            return true;
+        }
+
+        if (dir.x > 0 && transform.position.x >= MaxX)
+        {
+            return true;
+        }
+
+        if (dir.x < 0 && transform.position.x <= MinX)
+        {
+            return true;
+        }
+
+
+        return false;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -123,8 +157,16 @@ public class Player : MonoBehaviour
             {
                 isRunning = true;
                 characterDir = characterAxis.normalized;
-                characterMove = characterDir * _speed;
 
+                if (IsMapLimit(characterDir))
+                {
+                    characterMove = Vector2.zero;
+                }
+                else
+                {
+                    characterMove = characterDir * _speed;
+                }
+                
             }
             else {
                 isRunning = false;
@@ -248,7 +290,7 @@ public class Player : MonoBehaviour
 
         if (attackType > 2)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.4f);
             canNextAttack = false;
             attackType = 0;
 
@@ -256,7 +298,7 @@ public class Player : MonoBehaviour
         else {
 
             //ÈÄµô·¹ÀÌ
-            yield return new WaitForSeconds(attackTime * 0.3f);
+            yield return new WaitForSeconds(attackTime * 0.15f);
             if (nextAttackCoroutine == null) {
                 nextAttackCoroutine = StartCoroutine(NextAttack());
             }

@@ -8,6 +8,8 @@ public class HpSystem : MonoBehaviour
     public bool isAlive = true;
     public int hp = 100;
 
+    [SerializeField]
+    private GameObject deathEffect;
 
     public int Hp
     {
@@ -47,6 +49,10 @@ public class HpSystem : MonoBehaviour
 
     public void die() {
         isAlive = false;
+        if (deathEffect != null) {
+            Instantiate(deathEffect, transform.position, Quaternion.Euler(Vector3.zero));
+        }
+            
         Destroy(gameObject, dyingTime);
         
     }

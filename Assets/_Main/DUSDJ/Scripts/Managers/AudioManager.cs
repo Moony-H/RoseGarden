@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -124,9 +125,10 @@ namespace DUSDJ
         }
 
 
-        
+        public Dictionary<string, int> GroupDic = new Dictionary<string, int>();
 
-        public void PlayOneShot(string msg, int max = 3, float lifeTime = 0.1f)
+
+        public void PlayOneShotGroup(string msg, int max = 3, float lifeTime = 0.1f)
         {
             if (AudioDic == null)
             {
@@ -138,6 +140,24 @@ namespace DUSDJ
                 Debug.LogError(string.Format("Key : {0} 오디오소스가 없음", msg));
                 return;
             }
+
+
+            if (GroupDic.ContainsKey(msg))
+            {
+                if (GroupDic[msg] >= max)
+                {
+                    return;
+                }
+
+                GroupDic[msg] += 1;                
+                DOVirtual.DelayedCall(lifeTime, () => { GroupDic[msg] -= 1; });
+            }
+            else
+            {
+                GroupDic.Add(msg, 1);
+                DOVirtual.DelayedCall(lifeTime, () => { GroupDic[msg] -= 1; });
+            }
+
 
             audioSourceEfx.PlayOneShot(AudioDic[msg]);
         }

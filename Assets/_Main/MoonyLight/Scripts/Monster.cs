@@ -31,6 +31,9 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private GameObject effect;
 
+    private Animator hitAnim;
+
+
 
     private void Awake()
     {
@@ -40,9 +43,12 @@ public class Monster : MonoBehaviour
             Debug.Log("find");
             target = GameObject.Find("NPC");
         }
+
+        hitAnim = GetComponent<Animator>();
             
 
         _knockBackSpeed = knockBackSpeed;
+
     }
 
     private void FixedUpdate()
@@ -62,8 +68,9 @@ public class Monster : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
         }
 
+        hitAnim.SetBool("isHit",isKnockBack);
 
-        
+
     }
 
 

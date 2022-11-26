@@ -314,6 +314,15 @@ namespace DUSDJ
             GameOver();
         }
 
+        [Button]
+        public void AudioGroupTest(string msg, int value)
+        {
+            for (int i = 0; i < value; i++)
+            {
+                AudioManager.Instance.PlayOneShotGroup(msg, 3, 0.3f);
+            }
+        }
+
         #endregion
 
 

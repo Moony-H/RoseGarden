@@ -45,14 +45,17 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: 7bb99e0ab71c1c149a4f073105ac71cf, type: 3}
+    - {fileID: 2800000, guid: f5c702fd88b892f4fabcd1ec9b9e9fc8, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 7bb99e0ab71c1c149a4f073105ac71cf, type: 3}
+  - {fileID: 21300000, guid: f5c702fd88b892f4fabcd1ec9b9e9fc8, type: 3}
   m_PackedSpriteNamesToIndex:
   - Enemy_Du-Bu_00_00
+  - Shadow_00_00
   m_RenderDataMap: {}
   m_Tag: SpriteAtlas
   m_IsVariant: 0

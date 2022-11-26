@@ -106,6 +106,8 @@ MonoBehaviour:
   isKnockBack: 0
   knockBackSpeed: 0
   knockBackDecrease: 0
+  target: {fileID: 0}
+  effect: {fileID: 0}
 --- !u!114 &1420755989
 MonoBehaviour:
   m_ObjectHideFlags: 0

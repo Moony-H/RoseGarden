@@ -52,6 +52,10 @@ namespace DUSDJ
             OptionManager.Instance.SetEfxVolume(value);
         }
 
+        public void GoToTitle()
+        {
+            OptionManager.Instance.GoToTitle();
+        }
     }
 
 }

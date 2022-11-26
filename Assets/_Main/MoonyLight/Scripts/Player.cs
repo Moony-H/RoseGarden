@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
         if (isAttack)
         {
             _attackSpeed = Mathf.Lerp(_attackSpeed, 0f, Time.deltaTime * 4f / 7f * attackSpeed);
-            characterMove = _attackSpeed * characterDir * _speed;
+            characterMove = _attackSpeed * characterDir;
  //           Collider2D[] colls=null;
  //           if (isCanAttackCollider) {
  //               Vector2 attack = new Vector2(transform.position.x, transform.position.y);

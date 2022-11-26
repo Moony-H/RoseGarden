@@ -87,7 +87,7 @@ public class Monster : MonoBehaviour
         if (collision.transform.CompareTag("Weapon"))
         {
 
-            //DUSDJ.EffectManager.Instance.SetTextEffect("Hit_Mon_Dammage", transform.position, string.Format("{0}", Random.Range(193, 295)));
+            DUSDJ.EffectManager.Instance.SetTextEffect("Hit_Mon_Dammage", transform.position, string.Format("{0}", Random.Range(193, 295)));
 
             Vector3 hitPosition = transform.position;
             hitPosition.z += 1;

@@ -73,7 +73,7 @@ namespace DUSDJ
             }
 
         }
-
+        
         public IEnumerator InitCoroutine()
         {
             if (isInit)

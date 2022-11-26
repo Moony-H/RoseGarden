@@ -40,7 +40,11 @@ public class PortalManager :MonoBehaviour
         {
             if (null == instance)
             {
-                return null;
+                instance = FindObjectOfType<PortalManager>();
+                if (instance == null)
+                {
+                    return null;
+                }
             }
             return instance;
         }

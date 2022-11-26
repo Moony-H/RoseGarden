@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c9b943286a1584c8e950ad73a5679a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LongClickUpdateTime: 0.75
+  LongClickUpdateTime: 0.4
   IsClick: 0
 --- !u!114 &9212466369450845054
 MonoBehaviour:

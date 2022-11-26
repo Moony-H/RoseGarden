@@ -41,8 +41,6 @@ namespace DUSDJ
 
         public VariableJoystick Stick;
 
-        private CopyP player;
-
 
         #region Awake & Init
 
@@ -75,14 +73,6 @@ namespace DUSDJ
                 Stick = FindObjectOfType<VariableJoystick>(true);
                 Stick.OnPointerUp(null);
             }
-
-            player = FindObjectOfType<CopyP>();
-            player.Init();
-
-
-
-            SetJoystick();
-
 
             // Init End!
             isInit = true;            

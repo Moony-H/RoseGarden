@@ -57,14 +57,28 @@ public class Player : MonoBehaviour
     public bool isRunning=false;
     public int attackDamage=0;
 
-    void Start()
+
+
+
+    public bool isInit = false;
+
+    public void Init()
     {
         _speed = Speed;
+
+        isInit = true;
     }
+
 
     // Update is called once per frame
     void Update()
     {
+
+
+        if (!isInit)
+        {
+            return;
+        }
 
         Debug.DrawRay(transform.position, new Vector3(characterDir.x, characterDir.y, 0f), Color.red);
 
@@ -90,7 +104,16 @@ public class Player : MonoBehaviour
         {
             X = Input.GetAxisRaw("Horizontal");
             Y = Input.GetAxisRaw("Vertical");
-            characterAxis = new Vector2(X, Y);
+
+            if (DUSDJ.InputManager.Instance.UseMobile)
+            {
+                characterAxis = DUSDJ.InputManager.GetStickVector();
+            }
+            else
+            {
+                characterAxis = new Vector2(X, Y);
+            }
+
             if (characterAxis != Vector2.zero)
             {
                 isRunning = true;
@@ -139,16 +162,21 @@ public class Player : MonoBehaviour
 
 
 
-
-
-
-        if (!isAttack) {
-            if (Input.GetKeyDown(KeyCode.Space)&&Vector2.zero!=characterDir)
+        if (!isAttack)
+        {
+            if ((Input.GetKeyDown(KeyCode.Space) || DUSDJ.InputManager.BtnTrigger))
             {
-                if(attackCoroutine==null)
-                    attackCoroutine=StartCoroutine(Attack());
+                if (Vector2.zero != characterDir)
+                {
+                    if (attackCoroutine == null)
+                    {
+                        attackCoroutine = StartCoroutine(Attack());
+                    }
+                }
             }
         }
+        DUSDJ.InputManager.BtnTrigger = false;
+
         weaponAnimator.SetInteger("attackType", attackType);
         characterAnimator.SetInteger("attackType", attackType);
         characterAnimator.SetBool("isRunning", isRunning);

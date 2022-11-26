@@ -29,10 +29,15 @@ public class Monster : MonoBehaviour
     private GameObject target;
 
     [SerializeField]
-    private GameObject effect;
+    private GameObject hitEffect;
+
+    [SerializeField]
+    private GameObject deathEffect;
+
 
     private Animator hitAnim;
 
+    private bool death = false;
 
 
     private void Awake()
@@ -53,28 +58,37 @@ public class Monster : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (hpSystem.isAlive) {
+        if (hpSystem.isAlive)
+        {
             float x3Diff = transform.position.x - target.transform.position.x;
             if (x3Diff > 0f)
             {
                 //¿ÞÂÊ
                 transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
-            else {
+            else
+            {
 
-                transform.rotation = Quaternion.Euler(0f, -180f, 0f);            
+                transform.rotation = Quaternion.Euler(0f, -180f, 0f);
             }
             if (!isKnockBack)
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
         }
+        else {
+
+            Debug.LogError("death monster");
+        }
+//        else if(!death) {
+//            Debug.Log("death");
+//            death = true;
+//            Instantiate(deathEffect, transform.position, Quaternion.Euler(Vector3.zero));
+//        }
         if (hitAnim != null)
         {
-            Debug.Log("not null");
             hitAnim.SetBool("isHit", isKnockBack);
         }
         else {
 
-            Debug.Log("null");
         }
             
 
@@ -91,9 +105,8 @@ public class Monster : MonoBehaviour
 
             Vector3 hitPosition = transform.position;
             hitPosition.z += 1;
-            Instantiate(effect, hitPosition, Quaternion.Euler(Vector3.zero));
-
-
+            Instantiate(hitEffect, hitPosition, Quaternion.Euler(Vector3.zero));
+            
 
             hpSystem.loseHp(player.attackDamage);
             Debug.Log("attacked: " + player.attackDamage.ToString());

@@ -1,8 +1,6 @@
 Index,DialoguePosition,CharacterKey,Name_Cha,Sprite,Content
-1,Left,Cha_1,내이름,Cha_1_1,안녕 나는 1이야
-2,Right,Cha_2,네임,Cha_2_1,나는 2인데...
-3,Left,Cha_1,내이름,Cha_1_2,(화들짝 놀라며) 앗?! 정말? 그랬구나!
-4,Right,Cha_2,네임,Cha_2_2,(약간 실망하듯이) 아... 몰랐구나...
-5,Left,Cha_1,내이름,Cha_1_1,괜찮아 지금부터 알아가면 되니까
-6,Right,Cha_2,네임,Cha_2_3,(웃으며) 헤헤 너무 좋아
-7,Right,Cha_2,네임,Cha_2_1,앞으로 잘 부탁해!
+1,Left,Cha_1,내이름,Cha_1_1,여기가 마지막 장소인가?
+2,Right,Cha_2,네임,Cha_2_1,드디어 이 땅에 푸르른 빛을 되찾아 줄 수 있겠어 
+3,Right,Cha_1,내이름,Cha_2_1,금방 정화작업을 시작할게
+4,Right,Cha_2,네임,Cha_2_2,얼마 걸리진 않을거야
+5,Left,Cha_1,내이름,Cha_1_1,!!!

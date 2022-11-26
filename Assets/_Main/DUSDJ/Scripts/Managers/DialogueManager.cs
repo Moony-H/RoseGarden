@@ -258,6 +258,7 @@ namespace DUSDJ
 
             var pd = UIManager.Instance.PanDialogue;
 
+            pd.SetUI(false);
             pd.ClearBox(EnumDialoguePosition.Left);
             pd.ClearBox(EnumDialoguePosition.Right);
         }

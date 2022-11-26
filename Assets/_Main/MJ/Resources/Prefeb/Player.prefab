@@ -208,6 +208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3047a5e7c05e294a89cd82870546076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxY: 24
+  MinY: -24
+  MaxX: 24
+  MinX: -24
   characterDir: {x: 0, y: 0}
   characterMove: {x: 0, y: 0}
   Speed: 7.5

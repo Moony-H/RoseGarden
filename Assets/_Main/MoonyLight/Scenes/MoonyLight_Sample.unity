@@ -167,7 +167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1949007672810183927, guid: 4daeb6e209b1daf4da04599f7f57a4f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.7856185
+      value: 2.053
       objectReference: {fileID: 0}
     - target: {fileID: 1949007672810183927, guid: 4daeb6e209b1daf4da04599f7f57a4f8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -207,12 +207,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2392359123556810367, guid: 4daeb6e209b1daf4da04599f7f57a4f8, type: 3}
       propertyPath: speed
-      value: 0
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 2392359123556810367, guid: 4daeb6e209b1daf4da04599f7f57a4f8, type: 3}
       propertyPath: effect
       value: 
       objectReference: {fileID: 8570565793573161102, guid: c51f1c7a1637a8641bc302a0c0909cf6, type: 3}
+    - target: {fileID: 2392359123556810367, guid: 4daeb6e209b1daf4da04599f7f57a4f8, type: 3}
+      propertyPath: textMesh
+      value: 
+      objectReference: {fileID: 4829959159358245860, guid: 3f09f6bd05f8c884e9ac37834dee1591, type: 3}
     - target: {fileID: 2853880721218010256, guid: 4daeb6e209b1daf4da04599f7f57a4f8, type: 3}
       propertyPath: m_Name
       value: Monster
@@ -1779,7 +1783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4829959159358245880, guid: 3f09f6bd05f8c884e9ac37834dee1591, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.6221765
+      value: 2.711
       objectReference: {fileID: 0}
     - target: {fileID: 4829959159358245880, guid: 3f09f6bd05f8c884e9ac37834dee1591, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

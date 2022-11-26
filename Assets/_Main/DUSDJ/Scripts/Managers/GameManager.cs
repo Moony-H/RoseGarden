@@ -1,5 +1,7 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -32,7 +34,11 @@ namespace DUSDJ
 
         #endregion
 
+        public static int nowStage = 100;
 
+
+        [Header("도입부 스킵")]
+        public bool Skip = false;
 
         [Header("인게임 자동 BGM")]
         public string BGMName;
@@ -40,6 +46,7 @@ namespace DUSDJ
 
 
         private bool isInit = false;
+        private TimerMachine TimerMachine;
 
 
 
@@ -81,6 +88,11 @@ namespace DUSDJ
             /* InGame UI Manager */
             yield return UIManager.Instance.InitCoroutine();
 
+            /* Camera Manager */
+            yield return CameraManager.Instance.InitCoroutine();
+
+            /* Init Machines */
+            TimerMachine = GetComponentInChildren<TimerMachine>();
 
 
             /* Set BGM */
@@ -99,14 +111,98 @@ namespace DUSDJ
 
         public IEnumerator AfterInit()
         {
+            // Load Stage (최신스테이지 불러오기)
+            nowStage = PlayerDataManager.Instance.NowPD.GetLastStage();
+            
+            // 엔딩가야됨
+            if(nowStage <= 0)
+            {
+                Debug.LogError("스테이지키 끝남");
+                yield break;
+            }
+
+
             // Stage Start Dialogue
             // 스테이지 CSV데이터에서 가져와야하지만 임시로 0 고정
+            var stageData = Database.Instance.StageDic[nowStage];
 
-            yield return DialogueManager.Instance.Stage_Dialogue(0);
+            if (!Skip)
+            {
+                // 스테이지 다이얼로그 1
+                yield return DialogueManager.Instance.Stage_Dialogue(stageData.Dialogue_Init);
 
 
-            yield return null;
+                // 포탈 전부 한번씩 카메라 Follow
+                yield return CameraFollowPortals();
+
+
+                // 스테이지 다이얼로그 2
+                yield return DialogueManager.Instance.Stage_Dialogue(stageData.Dialogue_AfterCamera);
+
+            }
+
+
+            Debug.Log("Game Start!");
+            yield return GameStartRoutine(stageData);
         }
+
+
+        private IEnumerator GameStartRoutine(StructStage stageData)
+        {
+            yield return TimerMachine.SetTImerRoutine(stageData.Timer);
+
+
+
+
+        }
+
+        #endregion
+
+        [Header("시나리오")]
+        private List<PortalDummy> portals;
+        public float CameraWait = 1.0f;
+
+        private IEnumerator CameraFollowPortals()
+        {
+            var wait = new WaitForSeconds(CameraWait);
+
+            portals = FindObjectsOfType<PortalDummy>(true).ToList();
+
+            foreach (var portal in portals)
+            {
+                CameraManager.Instance.SetCameraFollow(portal.transform);
+                yield return wait;
+            }
+
+
+            // 마지막은 플레이어
+            var p = FindObjectOfType<Player>();
+            CameraManager.Instance.SetCameraFollow(p.transform);
+        }
+
+
+
+
+
+
+        #region GameOver, GameClear
+
+        public void GameOver()
+        {
+            Debug.Log("Stage Fail!");
+
+            UIManager.Instance.PopGameOver.SetUI(true);            
+        }
+
+        public void GameClear()
+        {
+            Debug.Log("Stage Clear!");
+            PlayerDataManager.Instance.NowPD.SetStageClear(nowStage);
+            PlayerDataManager.Instance.SaveMachine.UpdateSaveData(EnumSave.Clear);
+
+            UIManager.Instance.PopGameClear.SetUI(true);
+        }
+
 
         #endregion
 
@@ -135,6 +231,21 @@ namespace DUSDJ
             }
         }
 
+
+
+        [Button]
+        public void TestStageClear()
+        {   
+            GameClear();
+            
+        }
+
+
+        [Button]
+        public void TestStageFail()
+        {
+            GameOver();
+        }
 
         #endregion
 

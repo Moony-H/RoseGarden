@@ -144,31 +144,6 @@ public class Player : MonoBehaviour
         
     }
 
-    private void OnDrawGizmos()
-    {
-        if (isCanAttackCollider) {
-            Vector2 attack = new Vector2(transform.position.x, transform.position.y)+ characterDir* attackRange;
-            if (isAttack) {
-                if (attackType == 1)
-                {
-                    Gizmos.color = Color.yellow;
-                }
-                else if (attackType == 2)
-                {
-                    Gizmos.color = Color.red;
-                }
-                else if(attackType==3){
-
-                    Gizmos.color = Color.green;
-                }
-            
-            }
-                
-            
-            Gizmos.DrawWireSphere(new Vector3(attack.x, attack.y, 0), attackRange);
-
-        }
-    }
 
 
     public void StopCharacter()

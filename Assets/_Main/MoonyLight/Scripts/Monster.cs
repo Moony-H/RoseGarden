@@ -67,8 +67,16 @@ public class Monster : MonoBehaviour
             if (!isKnockBack)
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
         }
+        if (hitAnim != null)
+        {
+            Debug.Log("not null");
+            hitAnim.SetBool("isHit", isKnockBack);
+        }
+        else {
 
-        hitAnim.SetBool("isHit",isKnockBack);
+            Debug.Log("null");
+        }
+            
 
 
     }

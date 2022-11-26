@@ -15035,7 +15035,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6926626073337649850}
   - component: {fileID: 6926626073337649853}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body_Portal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15084,9 +15084,9 @@ GameObject:
   - component: {fileID: 3623643369386788753}
   - component: {fileID: 6563244328513281829}
   - component: {fileID: 1704531810}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Portal
-  m_TagString: Untagged
+  m_TagString: monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15186,8 +15186,8 @@ MonoBehaviour:
   speed: 0
   knockBackTime: 1
   isKnockBack: 0
-  knockBackSpeed: 1
-  knockBackDecrease: 2
+  knockBackSpeed: 0
+  knockBackDecrease: 0
   target: {fileID: 7468550674240265043, guid: ce061f34084725b44b7a6dd2b540bc9f, type: 3}
   effect: {fileID: 8570565793573161102, guid: c51f1c7a1637a8641bc302a0c0909cf6, type: 3}
 --- !u!1 &8936085265020064835
@@ -15201,7 +15201,7 @@ GameObject:
   - component: {fileID: 1190302762530693522}
   - component: {fileID: 6846509817726418828}
   - component: {fileID: 5410864016298046874}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

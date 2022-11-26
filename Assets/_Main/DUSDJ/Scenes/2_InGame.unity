@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e9e50da16344145a359894687c9051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EffectName: Hit_Mon_Dammage
 --- !u!1 &141651386
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,6 +1342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e9e50da16344145a359894687c9051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EffectName: Hit_Mon_Dammage
 --- !u!1 &906506368
 GameObject:
   m_ObjectHideFlags: 0
@@ -2068,6 +2070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e9e50da16344145a359894687c9051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EffectName: Hit_Mon_Dammage
 --- !u!1001 &1573239390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2433,6 +2436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e9e50da16344145a359894687c9051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EffectName: Hit_Mon_Dammage
 --- !u!1 &1977499174
 GameObject:
   m_ObjectHideFlags: 0

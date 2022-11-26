@@ -42,10 +42,13 @@ public class Player : MonoBehaviour
     private float CanNextAttackDelay = 1f;
 
     [SerializeField]
-    private Animator weaponeAnimator;
+    private Animator weaponAnimator;
 
     [SerializeField]
-    private GameObject weapone;
+    private GameObject weapon;
+
+    [SerializeField]
+    private GameObject model;
 
     void Start()
     {
@@ -58,7 +61,14 @@ public class Player : MonoBehaviour
 
         Debug.DrawRay(transform.position, new Vector3(characterDir.x, characterDir.y, 0f), Color.red);
 
-        weapone.transform.rotation =Quaternion.Euler( 0,0,Vector2.SignedAngle(Vector2.right, characterDir)+90f);
+
+        float weaponeRotationY = 0;
+        if (characterDir.x < 0)
+            weaponeRotationY = 180f;
+        else if (characterDir.x > 0)
+            weaponeRotationY = 0f;
+        Debug.Log(Vector2.Angle(Vector2.up, characterDir));
+        weapon.transform.rotation =Quaternion.Euler( 0, weaponeRotationY, Vector2.Angle(Vector2.down, characterDir));
 
         
 
@@ -71,8 +81,26 @@ public class Player : MonoBehaviour
             X = Input.GetAxisRaw("Horizontal");
             Y = Input.GetAxisRaw("Vertical");
             characterAxis = new Vector2(X, Y);
-            characterDir = characterAxis.normalized;
-            characterMove = characterDir * _speed;
+            if (characterAxis != Vector2.zero)
+            {
+                characterDir = characterAxis.normalized;
+                characterMove = characterDir * _speed;
+
+            }
+            else {
+                characterMove = Vector2.zero;
+            }
+                
+            
+        }
+
+        if (characterDir.x > 0)
+        {
+            model.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (characterDir.x < 0) {
+
+            model.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
 
 
@@ -109,7 +137,7 @@ public class Player : MonoBehaviour
                     attackCoroutine=StartCoroutine(Attack());
             }
         }
-        weaponeAnimator.SetInteger("attackType", attackType);
+        weaponAnimator.SetInteger("attackType", attackType);
     }
 
     private void FixedUpdate()

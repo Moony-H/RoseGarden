@@ -108,6 +108,37 @@ namespace DUSDJ
             }
         }
 
+
+        public TextEffect SetTextEffect(string msg, Vector3 position, string text)
+        {
+            if (EffectDic.ContainsKey(msg) == false)
+            {
+                Debug.LogWarning(string.Format("없는 이름으로 Effect 생성 : {0}", msg));
+                return null;
+            }
+
+            while (true)
+            {
+                for (int i = 0; i < ListDic[msg].Count; i++)
+                {
+                    Effect e = ListDic[msg][i];
+
+                    if (e.gameObject.activeSelf == false)
+                    {                        
+                        e.gameObject.SetActive(true);
+
+                        var te = (TextEffect)e;
+                        te.SetEffect(position, text);
+                        
+                        return te;
+                    }
+
+                }
+
+                IncreasePool(msg, 6);
+            }
+        }
+
         public Effect SetEffect(string msg, Vector3 position)
         {
             if (EffectDic.ContainsKey(msg) == false)

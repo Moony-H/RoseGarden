@@ -31,7 +31,12 @@ public class Player : MonoBehaviour
     private bool isInputBlocked = false;
 
     private bool isAttack = false;
-    private bool isAttackCollider = false;
+    private bool isCanAttackCollider = false;
+    private bool canNextAttack = false;
+    private int attackType = 0;
+
+    private Coroutine attackCoroutine = null;
+    private Coroutine nextAttackCoroutine = null;
 
     [SerializeField]
     float pushValue = 20f;
@@ -66,9 +71,9 @@ public class Player : MonoBehaviour
             _attackSpeed = Mathf.Lerp(_attackSpeed, 0f, Time.deltaTime * 4f / 7f * attackSpeed);
             characterMove = _attackSpeed * characterDir * _speed;
             Collider2D[] colls=null;
-            if (isAttackCollider) {
+            if (isCanAttackCollider) {
                 Vector2 attack = new Vector2(transform.position.x, transform.position.y);
-                colls = Physics2D.OverlapCircleAll(attack+characterDir, attackRange);
+                colls = Physics2D.OverlapCircleAll(attack+characterDir*attackRange, attackRange);
 
                 foreach (Collider2D coll in colls) {
                     if (coll.tag == "monster") {
@@ -87,25 +92,44 @@ public class Player : MonoBehaviour
 
 
 
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Character pushed");
-            StartCoroutine(Attack());
+        if (!isAttack) {
+            if (Input.GetKeyDown(KeyCode.Space)&&Vector2.zero!=characterDir)
+            {
+                if(attackCoroutine==null)
+                    attackCoroutine=StartCoroutine(Attack());
+            }
         }
+
     }
 
     private void FixedUpdate()
     {
 
         transform.Translate(characterMove * Time.deltaTime);
+        Debug.Log(attackType);
     }
 
     private void OnDrawGizmos()
     {
-        if (isAttackCollider) {
-            Vector2 attack = new Vector2(transform.position.x, transform.position.y)+ characterDir;
-            Gizmos.color = Color.yellow;
+        if (isCanAttackCollider) {
+            Vector2 attack = new Vector2(transform.position.x, transform.position.y)+ characterDir* attackRange;
+            if (isAttack) {
+                if (attackType == 0)
+                {
+                    Gizmos.color = Color.yellow;
+                }
+                else if (attackType == 1)
+                {
+                    Gizmos.color = Color.red;
+                }
+                else {
+
+                    Gizmos.color = Color.green;
+                }
+            
+            }
+                
+            
             Gizmos.DrawWireSphere(new Vector3(attack.x, attack.y, 0), attackRange);
 
         }
@@ -137,17 +161,62 @@ public class Player : MonoBehaviour
 
     IEnumerator Attack()
     {
-        Debug.Log("Attack start");
-        isAttack = true;
 
+        isAttack = true;
+        if (attackType ==2) {
+            attackType = 0;
+        }
+
+
+        if (canNextAttack)
+        {
+            attackType++;
+            if (nextAttackCoroutine != null) {
+                StopCoroutine(nextAttackCoroutine);
+            }
+            
+        }
+        else {
+            attackType = 0;
+        }
         BlockInput();
         _attackSpeed = attackSpeed;
-        isAttackCollider = true;
+        isCanAttackCollider = true;
         yield return new WaitForSeconds(attackTime *0.7f);
-        isAttackCollider = false;
-        yield return new WaitForSeconds(attackTime * 0.3f);
+        isCanAttackCollider = false;
+        
+        
+        
+        
+        
+
+        if (attackType > 1)
+        {
+            yield return new WaitForSeconds(1f);
+
+        }
+        else {
+
+            //ÈÄµô·¹ÀÌ
+            yield return new WaitForSeconds(attackTime * 0.3f);
+            if(nextAttackCoroutine==null)
+
+                nextAttackCoroutine = StartCoroutine(NextAttack());
+            
+            
+        }
+        UnblouckInput();
+
         isAttack = false;
         _attackSpeed = 0f;
-        UnblouckInput();
+        attackCoroutine=null;
+    }
+
+    IEnumerator NextAttack() {
+        canNextAttack = true;
+        yield return new WaitForSeconds(2f);
+        canNextAttack = false;
+        nextAttackCoroutine = null;
+        
     }
 }

@@ -156,7 +156,6 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log("isRunning: " + isRunning.ToString());
         transform.Translate(characterMove * Time.deltaTime);
         
     }

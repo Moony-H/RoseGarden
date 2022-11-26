@@ -123,6 +123,25 @@ namespace DUSDJ
             audioSourceEfx.PlayOneShot(AudioDic[msg]);
         }
 
+
+        private Dictionary<>
+
+        public void PlayOneShot(string msg, int max = 3, float lifeTime = 0.1f)
+        {
+            if (AudioDic == null)
+            {
+                return;
+            }
+
+            if (AudioDic.ContainsKey(msg) == false)
+            {
+                Debug.LogError(string.Format("Key : {0} 오디오소스가 없음", msg));
+                return;
+            }
+
+            audioSourceEfx.PlayOneShot(AudioDic[msg]);
+        }
+
         #endregion
 
 
@@ -171,11 +190,12 @@ namespace DUSDJ
                 return;
             }
 
+            /*
             if (audioSourceBgm.clip == AudioDic[msg])
             {
                 return;
             }
-
+            */
             audioSourceBgm.Stop();
             audioSourceBgm.clip = AudioDic[msg];
             audioSourceBgm.loop = true;

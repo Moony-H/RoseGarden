@@ -290,7 +290,7 @@ public class Player : MonoBehaviour
 
         if (attackType > 2)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.4f);
             canNextAttack = false;
             attackType = 0;
 
@@ -298,7 +298,7 @@ public class Player : MonoBehaviour
         else {
 
             //ÈÄµô·¹ÀÌ
-            yield return new WaitForSeconds(attackTime * 0.3f);
+            yield return new WaitForSeconds(attackTime * 0.15f);
             if (nextAttackCoroutine == null) {
                 nextAttackCoroutine = StartCoroutine(NextAttack());
             }

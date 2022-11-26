@@ -63,9 +63,9 @@ namespace DUSDJ
                 return key;
             }
 
-            // 다음 인덱스 없으면 음수 리턴
+            // 다음 인덱스 없으면 마지막 스테이지로
             Debug.Log("다음 스테이지 없음");
-            return -1;            
+            return dic.Last().Key;
         }
     }
 

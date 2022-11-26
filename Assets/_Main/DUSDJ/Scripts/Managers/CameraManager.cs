@@ -78,7 +78,7 @@ namespace DUSDJ
         {
             if (Instance == this)
             {
-                DontDestroyOnLoad(this);
+
             }
             else
             {

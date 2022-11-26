@@ -34,11 +34,37 @@ namespace DUSDJ
 
         #endregion
 
+
+        public int NPCLife = 10;
+
         private static bool restartTrigger = false;
 
         public static int nowStage = 100;
 
-        
+        private NPC npc;
+        public NPC NPC
+        {
+            get
+            {
+                if (npc == null)
+                {
+                    npc = FindObjectOfType<NPC>();
+                    if (npc == null)
+                    {
+                        Debug.LogError("npc is missing in this scene");
+                        return null;
+                    }
+                }
+
+                return npc;
+            }
+            set
+            {
+                npc = value;
+            }
+        }
+
+
         private Player player;
         public Player Player
         {
@@ -173,6 +199,9 @@ namespace DUSDJ
                 // 포탈 전부 한번씩 카메라 Follow
                 yield return CameraFollowPortals();
 
+                NPC.Init();
+
+                yield return new WaitForSeconds(1.0f);
 
                 // 스테이지 다이얼로그 2
                 yield return DialogueManager.Instance.Stage_Dialogue(stageData.Dialogue_AfterCamera);
@@ -195,9 +224,11 @@ namespace DUSDJ
             yield return TimerMachine.SetTImerRoutine(stageData.Timer);
 
 
-
             /* Set Player, NPC, Portal, Input */
-            
+            NPCLife = 10;
+            // NPC.Init();
+
+
             PortalManager.Instance.startCreate();
 
             Player.Init();

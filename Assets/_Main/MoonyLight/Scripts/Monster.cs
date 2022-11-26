@@ -34,11 +34,17 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private GameObject deathEffect;
 
-
+    [SerializeField]
     private Animator hitAnim;
 
     private bool death = false;
 
+    private int animType=0;
+
+    private bool stopMove = false;
+
+    [SerializeField]
+    private float expTime = 5f;
 
     private void Awake()
     {
@@ -49,7 +55,6 @@ public class Monster : MonoBehaviour
             target = GameObject.Find("NPC");
         }
 
-        hitAnim = GetComponent<Animator>();
             
 
         _knockBackSpeed = knockBackSpeed;
@@ -71,8 +76,10 @@ public class Monster : MonoBehaviour
 
                 transform.rotation = Quaternion.Euler(0f, -180f, 0f);
             }
-            if (!isKnockBack)
+            if (!isKnockBack) {
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
+            }
+                
         }
         else {
 
@@ -86,10 +93,12 @@ public class Monster : MonoBehaviour
         if (hitAnim != null)
         {
             hitAnim.SetBool("isHit", isKnockBack);
+            hitAnim.SetInteger("animType", animType);
+            Debug.Log("type: " + animType);
         }
-        else {
 
-        }
+
+        
             
 
 
@@ -106,7 +115,7 @@ public class Monster : MonoBehaviour
             Vector3 hitPosition = transform.position;
             hitPosition.z += 1;
             Instantiate(hitEffect, hitPosition, Quaternion.Euler(Vector3.zero));
-            
+
 
             hpSystem.loseHp(player.attackDamage);
             Debug.Log("attacked: " + player.attackDamage.ToString());
@@ -119,6 +128,15 @@ public class Monster : MonoBehaviour
                 knockBack = StartCoroutine(KnockBack());
             }
         }
+        else if (collision.transform.CompareTag("Barrier")) {
+
+            Debug.Log("hit barrier");
+            stopMove = true;
+
+            animType = 1;
+            StartCoroutine(ExplosionTIme());
+        }
+
 
     }
     IEnumerator KnockBack() {
@@ -128,6 +146,14 @@ public class Monster : MonoBehaviour
         knockBack = null;
         knockBackPoint = Vector2.zero;
 
+    }
+
+    IEnumerator ExplosionTIme() {
+
+        yield return new WaitForSeconds(expTime);
+        animType = 2;
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 
 

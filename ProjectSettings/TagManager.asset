@@ -42,6 +42,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Weapon
+    uniqueID: 3124378507
+    locked: 0
   - name: Cha
     uniqueID: 1448811699
+    locked: 0
+  - name: Dial_Cha
+    uniqueID: 2463714511
+    locked: 0
+  - name: UI
+    uniqueID: 2525106907
     locked: 0

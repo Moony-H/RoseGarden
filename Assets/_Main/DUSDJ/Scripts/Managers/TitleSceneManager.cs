@@ -99,7 +99,14 @@ namespace DUSDJ
                 ForceLoadingObject.SetActive(false);
             }
 
-            
+
+            // Database Init
+            yield return Database.Instance.InitCoroutine();
+
+
+            // Dialogue Manager Init
+            // yield return DialogueManager.Instance.InitCoroutine();
+
             // Resource Managers
             yield return AudioManager.Instance.InitCoroutine();
             yield return EffectManager.Instance.InitCoroutine();

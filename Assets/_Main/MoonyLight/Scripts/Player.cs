@@ -41,6 +41,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float CanNextAttackDelay = 1f;
 
+    [SerializeField]
+    private Animator weaponeAnimator;
+
+    [SerializeField]
+    private GameObject weapone;
+
     void Start()
     {
         _speed = Speed;
@@ -51,6 +57,10 @@ public class Player : MonoBehaviour
     {
 
         Debug.DrawRay(transform.position, new Vector3(characterDir.x, characterDir.y, 0f), Color.red);
+
+        weapone.transform.rotation =Quaternion.Euler( 0,0,Vector2.SignedAngle(Vector2.right, characterDir)+90f);
+
+        
 
         if (isStopped)
             return;
@@ -70,20 +80,20 @@ public class Player : MonoBehaviour
         {
             _attackSpeed = Mathf.Lerp(_attackSpeed, 0f, Time.deltaTime * 4f / 7f * attackSpeed);
             characterMove = _attackSpeed * characterDir * _speed;
-            Collider2D[] colls=null;
-            if (isCanAttackCollider) {
-                Vector2 attack = new Vector2(transform.position.x, transform.position.y);
-                colls = Physics2D.OverlapCircleAll(attack+characterDir*attackRange, attackRange);
-
-                foreach (Collider2D coll in colls) {
-                    if (coll.tag == "monster") {
-                        Destroy(coll.gameObject);
-                        
-                    }
-
-                
-                }
-            }
+ //           Collider2D[] colls=null;
+ //           if (isCanAttackCollider) {
+ //               Vector2 attack = new Vector2(transform.position.x, transform.position.y);
+ //               colls = Physics2D.OverlapCircleAll(attack+characterDir*attackRange, attackRange);
+ //
+ //               foreach (Collider2D coll in colls) {
+ //                   if (coll.tag == "monster") {
+ //                       Destroy(coll.gameObject);
+ //                       
+ //                   }
+ //
+ //               
+ //               }
+ //           }
         }
 
 
@@ -99,14 +109,14 @@ public class Player : MonoBehaviour
                     attackCoroutine=StartCoroutine(Attack());
             }
         }
-
+        weaponeAnimator.SetInteger("attackType", attackType);
     }
 
     private void FixedUpdate()
     {
 
         transform.Translate(characterMove * Time.deltaTime);
-        //Debug.Log(attackType);
+        
     }
 
     private void OnDrawGizmos()
@@ -114,15 +124,15 @@ public class Player : MonoBehaviour
         if (isCanAttackCollider) {
             Vector2 attack = new Vector2(transform.position.x, transform.position.y)+ characterDir* attackRange;
             if (isAttack) {
-                if (attackType == 0)
+                if (attackType == 1)
                 {
                     Gizmos.color = Color.yellow;
                 }
-                else if (attackType == 1)
+                else if (attackType == 2)
                 {
                     Gizmos.color = Color.red;
                 }
-                else {
+                else if(attackType==3){
 
                     Gizmos.color = Color.green;
                 }
@@ -162,22 +172,18 @@ public class Player : MonoBehaviour
     IEnumerator Attack()
     {
         //Debug.Log("attack");
+        
         isAttack = true;
-        if (attackType ==2) {
-            attackType = 0;
-        }
+
+        attackType++;
 
 
         if (canNextAttack)
         {
-            attackType++;
             if (nextAttackCoroutine != null) {
                 StopCoroutine(nextAttackCoroutine);
             }
             
-        }
-        else {
-            attackType = 0;
         }
         BlockInput();
         _attackSpeed = attackSpeed;
@@ -190,10 +196,11 @@ public class Player : MonoBehaviour
         
         
 
-        if (attackType > 1)
+        if (attackType > 2)
         {
             yield return new WaitForSeconds(1f);
             canNextAttack = false;
+            attackType = 0;
 
         }
         else {
@@ -222,12 +229,11 @@ public class Player : MonoBehaviour
     }
 
     IEnumerator NextAttack() {
-        Debug.Log("next attack");
         canNextAttack = true;
         yield return new WaitForSeconds(CanNextAttackDelay);
         canNextAttack = false;
-        Debug.Log("next attack end");
         nextAttackCoroutine = null;
+        attackType = 0;
         
     }
 }

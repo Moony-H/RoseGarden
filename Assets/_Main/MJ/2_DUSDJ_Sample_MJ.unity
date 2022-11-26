@@ -4209,7 +4209,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8704998776058599956, guid: 1588e7e8014e0644a99c0dbf84df8720, type: 3}
       propertyPath: UseMobile
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8704998776058599957, guid: 1588e7e8014e0644a99c0dbf84df8720, type: 3}
       propertyPath: m_RootOrder

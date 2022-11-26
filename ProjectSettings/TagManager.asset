@@ -49,6 +49,9 @@ TagManager:
   - name: Cha
     uniqueID: 1448811699
     locked: 0
+  - name: Efx
+    uniqueID: 988843861
+    locked: 0
   - name: Dial_Cha
     uniqueID: 2463714511
     locked: 0

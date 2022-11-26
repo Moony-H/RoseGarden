@@ -45,6 +45,9 @@ public class Player : MonoBehaviour
     private GameObject Weapon;
 
     [SerializeField]
+    private GameObject playerDirection;
+
+    [SerializeField]
     private GameObject model;
 
 
@@ -93,8 +96,10 @@ public class Player : MonoBehaviour
             Debug.LogWarning("weapon is null");
         }
         Weapon.transform.rotation =Quaternion.Euler( 0, weaponeRotationY, Vector2.Angle(Vector2.down, characterDir));
+        playerDirection.transform.rotation = Quaternion.Euler(58.353f,0f,Vector2.SignedAngle(Vector2.up,characterDir));;;
 
-        
+
+
 
         if (isStopped)
             return;
@@ -243,7 +248,7 @@ public class Player : MonoBehaviour
 
         if (attackType > 2)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             canNextAttack = false;
             attackType = 0;
 

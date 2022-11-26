@@ -71,8 +71,17 @@ public class Player : MonoBehaviour
             X = Input.GetAxisRaw("Horizontal");
             Y = Input.GetAxisRaw("Vertical");
             characterAxis = new Vector2(X, Y);
-            characterDir = characterAxis.normalized;
-            characterMove = characterDir * _speed;
+            if (characterAxis != Vector2.zero)
+            {
+                characterDir = characterAxis.normalized;
+                characterMove = characterDir * _speed;
+
+            }
+            else {
+                characterMove = Vector2.zero;
+            }
+                
+            
         }
 
 

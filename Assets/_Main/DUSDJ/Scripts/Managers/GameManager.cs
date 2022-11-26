@@ -222,7 +222,8 @@ namespace DUSDJ
         {
             Debug.Log("Stage Fail!");
 
-            UIManager.Instance.PopGameOver.SetUI(true);            
+            UIManager.Instance.PopGameOver.SetUI(true);
+            InputManager.Instance.CleanJoystick();
         }
 
         public void GameClear()
@@ -232,6 +233,7 @@ namespace DUSDJ
             PlayerDataManager.Instance.SaveMachine.UpdateSaveData(EnumSave.Clear);
 
             UIManager.Instance.PopGameClear.SetUI(true);
+            InputManager.Instance.CleanJoystick();
         }
 
 

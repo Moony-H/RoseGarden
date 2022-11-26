@@ -163,17 +163,20 @@ public class CopyP : MonoBehaviour
 
         if (!isAttack)
         {
-            if ((Input.GetKeyDown(KeyCode.Space) || DUSDJ.InputManager.btnTrigger)
-                && Vector2.zero != characterDir)
+            if ((Input.GetKeyDown(KeyCode.Space) || DUSDJ.InputManager.BtnTrigger))
             {
-                if (attackCoroutine == null)
+                if (Vector2.zero != characterDir)
                 {
-                    attackCoroutine = StartCoroutine(Attack());
-                    DUSDJ.InputManager.btnTrigger = false;
-                }
-                    
+                    if (attackCoroutine == null)
+                    {
+                        attackCoroutine = StartCoroutine(Attack());
+                    }
+                }                             
             }
         }
+        DUSDJ.InputManager.BtnTrigger = false;
+        
+
         weaponAnimator.SetInteger("attackType", attackType);
         characterAnimator.SetInteger("attackType", attackType);
         characterAnimator.SetBool("isRunning", isRunning);

@@ -79,8 +79,13 @@ namespace DUSDJ
             player = FindObjectOfType<CopyP>();
             player.Init();
 
+
+
+            SetJoystick();
+
+
             // Init End!
-            isInit = true;
+            isInit = true;            
         }
 
 
@@ -117,7 +122,7 @@ namespace DUSDJ
 
         #region Update & Inputs
 
-        public static bool btnTrigger = false;
+        public static bool BtnTrigger = false;
 
 
         public static Vector2 GetStickVector()
@@ -134,7 +139,7 @@ namespace DUSDJ
 
         public void OnClick()
         {
-            btnTrigger = true;
+            BtnTrigger = true;
         }
 
 

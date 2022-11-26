@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public Vector2 characterDir = Vector2.zero;
+    public Vector2 characterDir = Vector2.right;
     public Vector2 characterMove = Vector2.zero;
     private Vector2 characterAxis = Vector2.zero;
 
@@ -51,6 +51,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     public int[] comboAttackDamage = new int[3] { 1,2,3};
 
+    [SerializeField]
+    private Animator characterAnimator;
+
+    public bool isRunning=false;
     public int attackDamage=0;
 
     void Start()
@@ -89,11 +93,13 @@ public class Player : MonoBehaviour
             characterAxis = new Vector2(X, Y);
             if (characterAxis != Vector2.zero)
             {
+                isRunning = true;
                 characterDir = characterAxis.normalized;
                 characterMove = characterDir * _speed;
 
             }
             else {
+                isRunning = false;
                 characterMove = Vector2.zero;
             }
                 
@@ -144,11 +150,13 @@ public class Player : MonoBehaviour
             }
         }
         weaponAnimator.SetInteger("attackType", attackType);
+        characterAnimator.SetInteger("attackType", attackType);
+        characterAnimator.SetBool("isRunning", isRunning);
     }
 
     private void FixedUpdate()
     {
-
+        Debug.Log("isRunning: " + isRunning.ToString());
         transform.Translate(characterMove * Time.deltaTime);
         
     }

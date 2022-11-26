@@ -41,14 +41,6 @@ public class Monster : MonoBehaviour
         if (hpSystem.isAlive) {
             if (!isKnockBack)
                 transform.position = Vector3.MoveTowards(transform.position, npc.transform.position, speed);
-            else
-            {
-                Debug.Log("knock back");
-
-                //_knockBackSpeed = Mathf.Lerp(_knockBackSpeed, 0f, Time.deltaTime*knockBackDecrease);
-
-                //transform.Translate(_knockBackSpeed * knockBackPoint);
-            }
         }
 
 

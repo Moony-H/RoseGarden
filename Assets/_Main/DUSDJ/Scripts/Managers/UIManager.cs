@@ -45,6 +45,7 @@ namespace DUSDJ
         public PopGameOver PopGameOver;
         public PopGameClear PopGameClear;
 
+        public UIJoystick UIJoystick;
 
 
         #endregion
@@ -106,6 +107,12 @@ namespace DUSDJ
             {
                 PopGameClear = FindObjectOfType<PopGameClear>(true);
                 PopGameClear.Init();
+            }
+            
+            if (UIJoystick == null)
+            {
+                UIJoystick = FindObjectOfType<UIJoystick>(true);
+                UIJoystick.Init();
             }
 
             isInit = true;

@@ -8,8 +8,7 @@ public class PortalManager :MonoBehaviour
 
     private static PortalManager instance = null;
 
-    [SerializeField]
-    private Portal[] portals= new Portal[3];
+    public Portal[] portals= new Portal[3];
 
     [Button]
     void startEveryPortal() {

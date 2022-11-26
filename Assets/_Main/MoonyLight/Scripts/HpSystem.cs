@@ -17,7 +17,7 @@ public class HpSystem : MonoBehaviour
         }
         set
         {
-            if(value < 0)
+            if(value <=0)
             {
                 value = 0;
                 hp = value;

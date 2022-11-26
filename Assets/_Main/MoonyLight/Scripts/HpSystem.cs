@@ -46,8 +46,8 @@ public class HpSystem : MonoBehaviour
     }
 
     public void die() {
-
+        isAlive = false;
         Destroy(gameObject, dyingTime);
-        isAlive = true;
+        
     }
 }

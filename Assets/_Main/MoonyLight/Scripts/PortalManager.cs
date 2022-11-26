@@ -11,8 +11,12 @@ public class PortalManager :MonoBehaviour
     public Portal[] portals= new Portal[3];
 
     [Button]
-    void startEveryPortal() {
-        startCreate();
+    public void startCreate()
+    {
+        foreach (Portal portal in portals)
+        {
+            portal.startCreate();
+        }
     }
 
     void Awake()
@@ -42,10 +46,6 @@ public class PortalManager :MonoBehaviour
         }
     }
 
-    public void startCreate() {
-        foreach (Portal portal in portals) {
-            portal.startCreate();
-        }
-    }
+
 
 }

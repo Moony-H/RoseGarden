@@ -151,8 +151,9 @@ namespace DUSDJ
 
 
             // Stage Start Dialogue
-            // 스테이지 CSV데이터에서 가져와야하지만 임시로 0 고정
+            // 스테이지 CSV데이터에서 가져온다
             var stageData = Database.Instance.StageDic[nowStage];
+
 
             if (!Skip)
             {
@@ -170,9 +171,6 @@ namespace DUSDJ
             }
 
 
-            /* Set Player, NPC, Portal */
-
-
             Debug.Log("Game Start!");
             yield return GameStartRoutine(stageData);
         }
@@ -184,20 +182,27 @@ namespace DUSDJ
 
 
 
+            /* Set Player, NPC, Portal, Input */
+            
+            PortalManager.Instance.startCreate();
 
+
+            Player.Init();
+
+            InputManager.Instance.SetJoystick();            
         }
 
         #endregion
 
         [Header("시나리오")]
-        private List<PortalDummy> portals;
+        private List<Portal> portals;
         public float CameraWait = 1.0f;
 
         private IEnumerator CameraFollowPortals()
         {
             var wait = new WaitForSeconds(CameraWait);
 
-            portals = FindObjectsOfType<PortalDummy>(true).ToList();
+            portals = PortalManager.Instance.portals.ToList();
 
             foreach (var portal in portals)
             {

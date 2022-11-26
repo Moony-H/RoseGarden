@@ -1,0 +1,3 @@
+Key,Timer,Dialogue_Init,Dialogue_AfterCamera,Dialogue_Clear,Dialogue_Fail,PortalSet,MonsterList
+,// 초 단위,,,,,,
+100,180,10001,10002,10003,10004,,

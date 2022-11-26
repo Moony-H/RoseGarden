@@ -46,6 +46,28 @@ namespace DUSDJ
         // '모든' 다이얼로그 테이블
         public Dictionary<int, List<StructDialogue>> DialogueDic;
 
+        // 스테이지 테이블
+        public Dictionary<int, StructStage> StageDic;
+
+
+
+
+        private void Awake()
+        {
+            if (Instance == this)
+            {
+                DontDestroyOnLoad(this);
+            }
+            else
+            {
+                Destroy(gameObject);
+
+                return;
+            }
+
+        }
+
+
 
 
 
@@ -85,6 +107,9 @@ namespace DUSDJ
 
             // Sprite Dicionary
             workList.Add(SetSpriteDictionary());
+
+            // Stage Dicionary
+            workList.Add(SetStageDictionary());
 
             // Dialogue Dicionary
             workList.Add(SetDialogueDictionary());
@@ -138,6 +163,58 @@ namespace DUSDJ
                 }
             }
            
+
+            yield return null;
+        }
+
+
+
+
+        private IEnumerator SetStageDictionary()
+        {
+            if (StageDic == null)
+            {
+                Debug.Log("StageDic");
+                StageDic = new Dictionary<int, StructStage>();
+
+                var csv = Resources.Load<TextAsset>("CSV/StageTable");
+                List<Dictionary<string, object>> table = new List<Dictionary<string, object>>();
+                
+                table = CSVReader.Read(csv);
+
+
+                // Struct Dialogue for every index
+                for (int j = 0; j < table.Count; j++)
+                {
+                    if (string.IsNullOrEmpty(table[j]["Key"].ToString()))
+                    {
+                        continue;
+                    }
+
+                    StructStage ss = new StructStage();
+                    int.TryParse(table[j]["Key"].ToString(), out ss.Key);
+                    int.TryParse(table[j]["Timer"].ToString(), out ss.Timer);
+
+                    var split = table[j]["Dialogue_Init"].ToString().Split('_');                    
+                    ss.Dialogue_Init = int.Parse(split[split.Length - 1]);
+
+                    split = table[j]["Dialogue_AfterCamera"].ToString().Split('_');
+                    ss.Dialogue_AfterCamera = int.Parse(split[split.Length - 1]);
+
+                    split = table[j]["Dialogue_Clear"].ToString().Split('_');
+                    ss.Dialogue_Clear = int.Parse(split[split.Length - 1]);
+
+                    split = table[j]["Dialogue_Fail"].ToString().Split('_');
+                    ss.Dialogue_Fail = int.Parse(split[split.Length - 1]);
+                    
+                    if (StageDic.ContainsKey(ss.Key))
+                    {
+                        Debug.LogErrorFormat("stage key duplicatoin : {0}", ss.Key);
+                    }
+
+                    StageDic.Add(ss.Key, ss);
+                }
+            }
 
             yield return null;
         }

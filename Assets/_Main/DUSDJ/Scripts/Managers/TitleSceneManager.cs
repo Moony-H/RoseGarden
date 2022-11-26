@@ -99,6 +99,9 @@ namespace DUSDJ
                 ForceLoadingObject.SetActive(false);
             }
 
+            // Player Data Init (Load)
+            yield return PlayerDataManager.Instance.InitCoroutine();
+
 
             // Database Init
             yield return Database.Instance.InitCoroutine();
@@ -111,12 +114,8 @@ namespace DUSDJ
             yield return AudioManager.Instance.InitCoroutine();
             yield return EffectManager.Instance.InitCoroutine();
 
-            yield return new WaitForSeconds(2.0f);
-
             // OptionManager
             OptionManager.Instance.Init();
-
-
 
 
             IsLoaded = true;

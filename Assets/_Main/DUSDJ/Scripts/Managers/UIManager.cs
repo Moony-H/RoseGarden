@@ -41,6 +41,9 @@ namespace DUSDJ
 
         [HideInInspector]
         public PanDialogue PanDialogue;
+        public UITimer UITimer;
+        public PopGameOver PopGameOver;
+        public PopGameClear PopGameClear;
 
 
 
@@ -87,7 +90,23 @@ namespace DUSDJ
             }
 
 
+            if (UITimer == null)
+            {
+                UITimer = FindObjectOfType<UITimer>(true);
+                UITimer.Init();
+            }
 
+            if (PopGameOver == null)
+            {
+                PopGameOver = FindObjectOfType<PopGameOver>(true);
+                PopGameOver.Init();
+            }
+
+            if (PopGameClear == null)
+            {
+                PopGameClear = FindObjectOfType<PopGameClear>(true);
+                PopGameClear.Init();
+            }
 
             isInit = true;
         }

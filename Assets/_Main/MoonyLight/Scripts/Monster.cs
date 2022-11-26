@@ -25,8 +25,7 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private float knockBackDecrease = 2f;
     private Vector2 knockBackPoint=Vector2.zero;
-
-
+    
 
     private void Awake()
     {
@@ -52,7 +51,8 @@ public class Monster : MonoBehaviour
     {
         if (collision.transform.CompareTag("Weapon"))
         {
-            hpSystem.loseHp(player.attackDamage);
+            hpSystem.loseHp(player.attackDamage);            
+
             Debug.Log("attacked: " + player.attackDamage.ToString());
             if (knockBack == null)
                 knockBack = StartCoroutine(KnockBack());

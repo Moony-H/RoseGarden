@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     private Coroutine nextAttackCoroutine = null;
 
     [SerializeField]
-    float pushValue = 20f;
+    private float CanNextAttackDelay = 1f;
 
     void Start()
     {
@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
     {
 
         transform.Translate(characterMove * Time.deltaTime);
-        Debug.Log(attackType);
+        //Debug.Log(attackType);
     }
 
     private void OnDrawGizmos()
@@ -161,7 +161,7 @@ public class Player : MonoBehaviour
 
     IEnumerator Attack()
     {
-
+        //Debug.Log("attack");
         isAttack = true;
         if (attackType ==2) {
             attackType = 0;
@@ -193,15 +193,23 @@ public class Player : MonoBehaviour
         if (attackType > 1)
         {
             yield return new WaitForSeconds(1f);
+            canNextAttack = false;
 
         }
         else {
 
             //ÈÄµô·¹ÀÌ
             yield return new WaitForSeconds(attackTime * 0.3f);
-            if(nextAttackCoroutine==null)
-
+            if (nextAttackCoroutine == null) {
                 nextAttackCoroutine = StartCoroutine(NextAttack());
+            }
+            else{
+                StopCoroutine(nextAttackCoroutine);
+                canNextAttack = false;
+                nextAttackCoroutine=StartCoroutine(NextAttack());
+            }
+
+                
             
             
         }
@@ -210,12 +218,15 @@ public class Player : MonoBehaviour
         isAttack = false;
         _attackSpeed = 0f;
         attackCoroutine=null;
+        //Debug.Log("attack end");
     }
 
     IEnumerator NextAttack() {
+        Debug.Log("next attack");
         canNextAttack = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(CanNextAttackDelay);
         canNextAttack = false;
+        Debug.Log("next attack end");
         nextAttackCoroutine = null;
         
     }

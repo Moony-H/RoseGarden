@@ -34,6 +34,8 @@ namespace DUSDJ
 
         #endregion
 
+        private static bool restartTrigger = false;
+
         public static int nowStage = 100;
 
         
@@ -81,7 +83,7 @@ namespace DUSDJ
         {
             if (Instance == this)
             {
-                DontDestroyOnLoad(this);
+
             }
             else
             {
@@ -122,10 +124,6 @@ namespace DUSDJ
             /* Init Machines */
             TimerMachine = GetComponentInChildren<TimerMachine>();
             
-
-            /* Set BGM */
-            AudioManager.Instance.SetBGM(BGMName);
-
             /* Set PopOption */
             OptionManager.Instance.Init();
 
@@ -133,12 +131,23 @@ namespace DUSDJ
             isInit = true;
 
 
-            yield return AfterInit();
+            if (restartTrigger)
+            {
+                restartTrigger = false;
+                yield return AfterInit(true);                
+            }
+            else
+            {
+                yield return AfterInit();
+            }            
         }
 
 
-        public IEnumerator AfterInit()
+        public IEnumerator AfterInit(bool restartSkip = false)
         {
+            /* Set BGM */
+            AudioManager.Instance.SetBGM(BGMName);
+
             // Load Stage (최신스테이지 불러오기)
             nowStage = PlayerDataManager.Instance.NowPD.GetLastStage();
             
@@ -155,7 +164,7 @@ namespace DUSDJ
             var stageData = Database.Instance.StageDic[nowStage];
 
 
-            if (!Skip)
+            if (!Skip && !restartSkip)
             {
                 // 스테이지 다이얼로그 1
                 yield return DialogueManager.Instance.Stage_Dialogue(stageData.Dialogue_Init);
@@ -168,6 +177,11 @@ namespace DUSDJ
                 // 스테이지 다이얼로그 2
                 yield return DialogueManager.Instance.Stage_Dialogue(stageData.Dialogue_AfterCamera);
 
+            }
+            else
+            {
+                // 포탈 전부 한번씩 카메라 Follow
+                yield return CameraFollowPortals();
             }
 
 
@@ -185,7 +199,6 @@ namespace DUSDJ
             /* Set Player, NPC, Portal, Input */
             
             PortalManager.Instance.startCreate();
-
 
             Player.Init();
 
@@ -218,6 +231,19 @@ namespace DUSDJ
 
 
 
+        #region Restart
+
+        public void Restart()
+        {            
+            StopAllCoroutines();
+            
+            restartTrigger = true;
+
+            LoadingSceneManager.LoadScene(2);
+        }
+
+        #endregion
+
 
 
 
@@ -225,6 +251,8 @@ namespace DUSDJ
 
         public void GameOver()
         {
+            AudioManager.Instance.BGMStop();
+
             Debug.Log("Stage Fail!");
 
             UIManager.Instance.PopGameOver.SetUI(true);
@@ -233,6 +261,8 @@ namespace DUSDJ
 
         public void GameClear()
         {
+            AudioManager.Instance.BGMStop();
+
             Debug.Log("Stage Clear!");
             PlayerDataManager.Instance.NowPD.SetStageClear(nowStage);
             PlayerDataManager.Instance.SaveMachine.UpdateSaveData(EnumSave.Clear);
@@ -240,7 +270,6 @@ namespace DUSDJ
             UIManager.Instance.PopGameClear.SetUI(true);
             InputManager.Instance.CleanJoystick();
         }
-
 
         #endregion
 

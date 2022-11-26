@@ -28,6 +28,18 @@ namespace DUSDJ
 
 
 
+        public void BtnGoToTitle()
+        {
+            LoadingSceneManager.LoadScene(0);
+        }
+
+        public void Restart()
+        {
+            SetUI(false);
+
+            GameManager.Instance.Restart();
+        }
+
 
     }
 

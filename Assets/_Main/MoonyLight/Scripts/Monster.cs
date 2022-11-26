@@ -28,6 +28,9 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private GameObject target;
 
+    [SerializeField]
+    private GameObject effect;
+
 
     private void Awake()
     {
@@ -58,6 +61,9 @@ public class Monster : MonoBehaviour
     {
         if (collision.transform.CompareTag("Weapon"))
         {
+            Vector3 hitPosition = transform.position;
+            hitPosition.z += 1;
+            Instantiate(effect, hitPosition, Quaternion.Euler(Vector3.zero));
             hpSystem.loseHp(player.attackDamage);
             Debug.Log("attacked: " + player.attackDamage.ToString());
             if (knockBack == null)

@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1448811699
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7bb99e0ab71c1c149a4f073105ac71cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -106,7 +106,8 @@ MonoBehaviour:
   isKnockBack: 0
   knockBackSpeed: 0
   knockBackDecrease: 0
-  target: {fileID: 0}
+  target: {fileID: 7468550674240265043, guid: ce061f34084725b44b7a6dd2b540bc9f, type: 3}
+  effect: {fileID: 8570565793573161102, guid: c51f1c7a1637a8641bc302a0c0909cf6, type: 3}
 --- !u!114 &2392359123556810360
 MonoBehaviour:
   m_ObjectHideFlags: 0

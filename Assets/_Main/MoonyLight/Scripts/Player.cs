@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public Vector2 characterDir = Vector2.zero;
+    public Vector2 characterDir = Vector2.right;
     public Vector2 characterMove = Vector2.zero;
     private Vector2 characterAxis = Vector2.zero;
 
@@ -42,10 +42,20 @@ public class Player : MonoBehaviour
     private Animator weaponAnimator;
 
     [SerializeField]
-    private GameObject weapon;
+    private GameObject Weapon;
 
     [SerializeField]
     private GameObject model;
+
+
+    [SerializeField]
+    public int[] comboAttackDamage = new int[3] { 1,2,3};
+
+    [SerializeField]
+    private Animator characterAnimator;
+
+    public bool isRunning=false;
+    public int attackDamage=0;
 
     void Start()
     {
@@ -64,8 +74,11 @@ public class Player : MonoBehaviour
             weaponeRotationY = 180f;
         else if (characterDir.x > 0)
             weaponeRotationY = 0f;
-        Debug.Log(Vector2.Angle(Vector2.up, characterDir));
-        weapon.transform.rotation =Quaternion.Euler( 0, weaponeRotationY, Vector2.Angle(Vector2.down, characterDir));
+
+        if (Weapon == null) {
+            Debug.LogWarning("weapon is null");
+        }
+        Weapon.transform.rotation =Quaternion.Euler( 0, weaponeRotationY, Vector2.Angle(Vector2.down, characterDir));
 
         
 
@@ -80,11 +93,13 @@ public class Player : MonoBehaviour
             characterAxis = new Vector2(X, Y);
             if (characterAxis != Vector2.zero)
             {
+                isRunning = true;
                 characterDir = characterAxis.normalized;
                 characterMove = characterDir * _speed;
 
             }
             else {
+                isRunning = false;
                 characterMove = Vector2.zero;
             }
                 
@@ -104,7 +119,7 @@ public class Player : MonoBehaviour
         if (isAttack)
         {
             _attackSpeed = Mathf.Lerp(_attackSpeed, 0f, Time.deltaTime * 4f / 7f * attackSpeed);
-            characterMove = _attackSpeed * characterDir * _speed;
+            characterMove = _attackSpeed * characterDir;
  //           Collider2D[] colls=null;
  //           if (isCanAttackCollider) {
  //               Vector2 attack = new Vector2(transform.position.x, transform.position.y);
@@ -135,11 +150,13 @@ public class Player : MonoBehaviour
             }
         }
         weaponAnimator.SetInteger("attackType", attackType);
+        characterAnimator.SetInteger("attackType", attackType);
+        characterAnimator.SetBool("isRunning", isRunning);
     }
 
     private void FixedUpdate()
     {
-
+        Debug.Log("isRunning: " + isRunning.ToString());
         transform.Translate(characterMove * Time.deltaTime);
         
     }
@@ -177,6 +194,7 @@ public class Player : MonoBehaviour
 
         attackType++;
 
+        attackDamage=comboAttackDamage[attackType - 1];
 
         if (canNextAttack)
         {

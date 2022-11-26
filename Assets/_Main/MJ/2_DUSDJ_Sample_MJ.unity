@@ -10903,6 +10903,10 @@ PrefabInstance:
       propertyPath: Skip
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7583532646923062024, guid: 2bfcd31c7ed131248b657fbdaec77271, type: 3}
+      propertyPath: BGMName
+      value: 9. To The Victory
+      objectReference: {fileID: 0}
     - target: {fileID: 7583532646923062025, guid: 2bfcd31c7ed131248b657fbdaec77271, type: 3}
       propertyPath: m_RootOrder
       value: 13

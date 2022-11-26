@@ -19036,6 +19036,7 @@ GameObject:
   - component: {fileID: 1130387950066320114}
   - component: {fileID: 972726439936495372}
   - component: {fileID: 970561062685316596}
+  - component: {fileID: 2771334714758439403}
   m_Layer: 0
   m_Name: Efx_Monsters_Atk
   m_TagString: Untagged
@@ -23880,6 +23881,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2771334714758439403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133409626068984104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3326bea1137e7454fb5515afdd001c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1133558512026034240
 GameObject:
   m_ObjectHideFlags: 0

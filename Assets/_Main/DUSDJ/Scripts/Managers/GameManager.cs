@@ -40,7 +40,7 @@ namespace DUSDJ
         private static bool restartTrigger = false;
 
         public static int nowStage = 100;
-
+        /*
         private NPC npc;
         public NPC NPC
         {
@@ -63,7 +63,7 @@ namespace DUSDJ
                 npc = value;
             }
         }
-
+        */
 
         private Player player;
         public Player Player
@@ -199,7 +199,7 @@ namespace DUSDJ
                 // 포탈 전부 한번씩 카메라 Follow
                 yield return CameraFollowPortals();
 
-                NPC.Init();
+                //NPC.Init();
 
                 yield return new WaitForSeconds(1.0f);
 

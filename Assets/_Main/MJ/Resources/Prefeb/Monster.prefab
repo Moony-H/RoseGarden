@@ -226,6 +226,10 @@ MonoBehaviour:
   target: {fileID: 0}
   hitEffect: {fileID: 8570565793573161102, guid: c51f1c7a1637a8641bc302a0c0909cf6, type: 3}
   deathEffect: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
+  hitAnim: {fileID: 0}
+  expTime: 5
+  monsterDamage: 1
+  expEffect: {fileID: 1133409626068984104, guid: 32cbc885f12d03a41a29209a90410180, type: 3}
 --- !u!114 &2392359123556810360
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DUSDJ;
 
 public class Monster : MonoBehaviour
 {
@@ -45,6 +46,13 @@ public class Monster : MonoBehaviour
 
     [SerializeField]
     private float expTime = 5f;
+
+    [SerializeField]
+    private int monsterDamage = 1;
+
+    [SerializeField]
+    private GameObject expEffect;
+
 
     private void Awake()
     {
@@ -132,11 +140,12 @@ public class Monster : MonoBehaviour
         }
         else if (collision.transform.CompareTag("Barrier")) {
 
-            Debug.Log("hit barrier");
             stopMove = true;
+            Instantiate(expEffect, transform.position, Quaternion.Euler(0, 0, 0));
+            GameManager.Instance.NPCLife -= monsterDamage;
+            Debug.Log("attack dam: "+GameManager.Instance.NPCLife.ToString());
+            Destroy(gameObject);
 
-            animType = 1;
-            StartCoroutine(ExplosionTIme());
         }
 
 
@@ -150,13 +159,7 @@ public class Monster : MonoBehaviour
 
     }
 
-    IEnumerator ExplosionTIme() {
 
-        yield return new WaitForSeconds(expTime);
-        animType = 2;
-        yield return new WaitForSeconds(3f);
-        Destroy(gameObject);
-    }
 
 
 

@@ -36,6 +36,31 @@ namespace DUSDJ
 
         public static int nowStage = 100;
 
+        
+        private Player player;
+        public Player Player
+        {
+            get
+            {
+                if(player == null)
+                {
+                    player = FindObjectOfType<Player>();
+                    if (player == null)
+                    {
+                        Debug.LogError("Player is missing in this scene");
+                        return null;
+                    }
+                }
+
+                return player;
+            }
+            set
+            {
+                player = value;
+            }
+        }
+
+
 
         [Header("µµ¿‘∫Œ Ω∫≈µ")]
         public bool Skip = false;
@@ -91,9 +116,12 @@ namespace DUSDJ
             /* Camera Manager */
             yield return CameraManager.Instance.InitCoroutine();
 
+            /* InputManager */
+            yield return InputManager.Instance.InitCoroutine();
+
             /* Init Machines */
             TimerMachine = GetComponentInChildren<TimerMachine>();
-
+            
 
             /* Set BGM */
             AudioManager.Instance.SetBGM(BGMName);
@@ -140,6 +168,9 @@ namespace DUSDJ
                 yield return DialogueManager.Instance.Stage_Dialogue(stageData.Dialogue_AfterCamera);
 
             }
+
+
+            /* Set Player, NPC, Portal */
 
 
             Debug.Log("Game Start!");

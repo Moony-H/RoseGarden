@@ -17,4 +17,12 @@ public class Monster : MonoBehaviour
     }
 
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Weapon")) {
+            Debug.Log("attacked");
+        }
+    }
+
+
 }

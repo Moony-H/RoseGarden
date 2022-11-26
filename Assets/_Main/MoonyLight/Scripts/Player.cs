@@ -24,9 +24,6 @@ public class Player : MonoBehaviour
     private float _attackSpeed = 0f;
 
     [SerializeField]
-    private float attackRange = 0.5f;
-
-    [SerializeField]
     private float attackTime = 0.4f;
     private bool isInputBlocked = false;
 

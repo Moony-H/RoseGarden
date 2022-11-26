@@ -124,7 +124,7 @@ namespace DUSDJ
         }
 
 
-        private Dictionary<>
+        
 
         public void PlayOneShot(string msg, int max = 3, float lifeTime = 0.1f)
         {

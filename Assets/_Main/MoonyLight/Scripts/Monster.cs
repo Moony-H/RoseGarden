@@ -103,6 +103,8 @@ public class Monster : MonoBehaviour
 
             DUSDJ.EffectManager.Instance.SetTextEffect("Hit_Mon_Dammage", transform.position, string.Format("{0}", Random.Range(193, 295)));
 
+            DUSDJ.AudioManager.Instance.PlayOneShotGroup("gwvCB2D", 3, 0.05f);
+
             Vector3 hitPosition = transform.position;
             hitPosition.z += 1;
             Instantiate(hitEffect, hitPosition, Quaternion.Euler(Vector3.zero));

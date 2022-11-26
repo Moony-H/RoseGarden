@@ -42,10 +42,16 @@ public class Player : MonoBehaviour
     private Animator weaponAnimator;
 
     [SerializeField]
-    private GameObject weapon;
+    private GameObject Weapon;
 
     [SerializeField]
     private GameObject model;
+
+
+    [SerializeField]
+    public int[] comboAttackDamage = new int[3] { 1,2,3};
+
+    public int attackDamage=0;
 
     void Start()
     {
@@ -64,8 +70,11 @@ public class Player : MonoBehaviour
             weaponeRotationY = 180f;
         else if (characterDir.x > 0)
             weaponeRotationY = 0f;
-        Debug.Log(Vector2.Angle(Vector2.up, characterDir));
-        weapon.transform.rotation =Quaternion.Euler( 0, weaponeRotationY, Vector2.Angle(Vector2.down, characterDir));
+
+        if (Weapon == null) {
+            Debug.LogWarning("weapon is null");
+        }
+        Weapon.transform.rotation =Quaternion.Euler( 0, weaponeRotationY, Vector2.Angle(Vector2.down, characterDir));
 
         
 
@@ -177,6 +186,7 @@ public class Player : MonoBehaviour
 
         attackType++;
 
+        attackDamage=comboAttackDamage[attackType - 1];
 
         if (canNextAttack)
         {
